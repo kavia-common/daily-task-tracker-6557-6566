@@ -4,6 +4,8 @@ This workspace contains:
 - Host (shell): main app in root (project name: angular)
 - Remote: `mf-login` (projects/mf-login) exposing `LoginModule` via Module Federation.
 
+Note: The `mf-dashboard` remote and all dashboard/task-related code have been removed. Only the login remote is available.
+
 ## Theming
 - Angular Material is installed and themed using tokens from assets/style_guide.md.
 - Theme file: `src/styles/theme.scss` (included in angular.json for both host and remote).
@@ -16,7 +18,6 @@ This workspace contains:
 
 ## API base configuration (temporary)
 - The `mf-login` remote reads `window.NG_APP_API_BASE` to configure its `LoginApiService`.
-- For step 2.2 this is a simulated API; in step 2.3 wire to the backend endpoint (e.g., `${NG_APP_BACKEND_URL}/auth/login`).
 - To override at runtime, set in the browser console or include before the host script:
   ```html
   <script>window.NG_APP_API_BASE = 'http://localhost:3001';</script>

@@ -2,8 +2,9 @@ import { Routes } from '@angular/router';
 
 /**
  * PUBLIC_INTERFACE
- * Application routes for host app-shell. The '/login' route loads the
- * 'mf-login' remote via Module Federation using its exposed LoginModule.
+ * Application routes for host app-shell.
+ * Only '/login' is available and it loads the 'mf-login' remote via Module Federation.
+ * Default route redirects to '/login'.
  */
 export const routes: Routes = [
   {

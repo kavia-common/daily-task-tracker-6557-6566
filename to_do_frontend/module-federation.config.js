@@ -2,7 +2,7 @@ const withModuleFederationPlugin = require('@angular-architects/module-federatio
 
 /**
  * PUBLIC_INTERFACE
- * Host (app-shell) Module Federation config. Maps 'mf-login' to its remoteEntry for local dev.
+ * Host (app-shell) Module Federation config. Only maps 'mf-login' remote.
  */
 module.exports = withModuleFederationPlugin({
   name: 'app-shell',

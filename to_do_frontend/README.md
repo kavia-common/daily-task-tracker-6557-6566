@@ -4,6 +4,8 @@ This workspace includes:
 - Host app (shell): `angular` (port 3000)
 - Remote app: `mf-login` exposing `./LoginModule` (port 4201)
 
+Note: The previous `mf-dashboard` and any dashboard/task-related code have been removed. The only available route is `/login` which loads the login remote.
+
 Quick start:
 - Install: `npm install`
 - Start remote: `npm run start:remote:login` (http://localhost:4201)
@@ -15,8 +17,6 @@ Login functionality:
 - Validation: required email (email format) and required password; submit disabled until valid.
 - Includes remember me, loading spinner, and an error message area with aria-live for accessibility.
 - Service: `LoginApiService` uses a DI token `LOGIN_API_BASE` and reads `window.NG_APP_API_BASE` by default.
-  - Step 2.2 uses a simulated API response (emails containing "ok" succeed).
-  - Step 2.3 will wire a real backend endpoint (e.g., `${NG_APP_BACKEND_URL}/auth/login`).
 
 Module Federation:
 - Host maps `mf-login` to `http://localhost:4201/remoteEntry.js` in `module-federation.config.js`.
