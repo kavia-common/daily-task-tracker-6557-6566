@@ -1,4 +1,4 @@
-/* CSS variable tokens from assets/style_guide.md */
+/* CSS variable tokens from assets/style_guide.md (Ocean Professional applied) */
 :root {
   --bg-canvas: #EEF2F5;
   --bg-surface: #FFFFFF;
@@ -7,13 +7,14 @@
   --grad-mid: #A43AFE;
   --grad-end: #E61E5A;
 
-  --primary-50: #FFE6EE;
-  --primary-500: #FF3366;
-  --primary-600: #E92A5C;
-  --primary-focus: rgba(255, 51, 102, 0.24);
+  /* Ocean Professional primary accents map to our brand primary controls */
+  --primary-50: #E0ECFF; /* subtle ocean tint for info backgrounds */
+  --primary-500: #2563EB; /* Ocean blue primary for actions */
+  --primary-600: #1D4ED8; /* Hover/darker */
+  --primary-focus: rgba(37, 99, 235, 0.24); /* focus ring */
 
-  --text-strong: #0E1116;
-  --text-body: #3B4453;
+  --text-strong: #111827; /* Ocean theme strong text */
+  --text-body: #374151;
   --text-muted: #6B7280;
 
   --border-subtle: #E5E7EB;
@@ -33,16 +34,20 @@
   box-shadow: 0 10px 24px var(--shadow-color);
   background: var(--bg-surface);
   padding: 24px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
 }
 
-/* MDC/Material shape overrides via CSS custom properties (works even without Sass theme build) */
+/* MDC/Material shape overrides via CSS custom properties */
 .mat-mdc-form-field {
   --mdc-outlined-text-field-container-shape: 12px;
+  --mdc-outlined-text-field-outline-color: var(--border-subtle);
 }
 
+/* Button base styling consistent with Ocean Professional */
 .btn-primary.mdc-button--filled, .btn-primary.mat-mdc-unelevated-button {
   border-radius: 12px;
   height: 48px;
   font-weight: 600;
   text-transform: none;
+  letter-spacing: .3px;
 }

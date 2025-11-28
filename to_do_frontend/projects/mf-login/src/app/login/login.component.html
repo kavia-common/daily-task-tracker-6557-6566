@@ -1,55 +1,82 @@
 <div class="auth-shell">
   <section class="panel-left">
     <div class="copy-wrap">
-      <div class="brand">di<span class="dot">:</span>sh</div>
+      <div class="brand" aria-label="Dish brand">di<span class="dot">:</span>sh</div>
       <h1>Welcome to your SBB Management Portal</h1>
       <p class="lede">
         Manage and monitor millions of KPIs intelligently to improve operational efficiency and enhance customer experience
       </p>
-      <div class="meta">
-        <a href="#">Privacy policy</a>
-        <span class="sep">•</span>
-        <a href="#">Terms of use</a>
-        <span class="sep">•</span>
-        <a href="#">Contact support</a>
+      <div class="meta" aria-label="site links">
+        <a href="#" aria-label="Privacy policy">Privacy policy</a>
+        <span class="sep" aria-hidden="true">•</span>
+        <a href="#" aria-label="Terms of use">Terms of use</a>
+        <span class="sep" aria-hidden="true">•</span>
+        <a href="#" aria-label="Contact support">Contact support</a>
       </div>
     </div>
   </section>
 
   <section class="panel-right">
-    <div class="auth-card mat-elevation-z8">
+    <div class="auth-card mat-elevation-z8" role="region" aria-label="Login form">
       <h2 class="card-title">Login</h2>
 
       <!-- Error area -->
-      <div *ngIf="errorMessage()" class="error-area" role="alert" aria-live="assertive">
+      <div *ngIf="errorMessage()" class="alert error-area" role="alert" aria-live="assertive">
         {{ errorMessage() }}
       </div>
 
       <!-- Success area -->
-      <div *ngIf="successMessage()" class="success-area" role="status" aria-live="polite">
+      <div *ngIf="successMessage()" class="alert success-area" role="status" aria-live="polite">
         {{ successMessage() }}
       </div>
 
       <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-        <mat-form-field appearance="outline" class="w-100">
+        <mat-form-field appearance="outline" class="w-100 field">
           <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" required aria-label="Email" placeholder="you@company.com">
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            required
+            aria-label="Email address"
+            placeholder="you@company.com"
+            autocomplete="email"
+          />
           <mat-error *ngIf="emailCtrl?.hasError('required')">Email is required.</mat-error>
           <mat-error *ngIf="emailCtrl?.hasError('email')">Enter a valid email address.</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100">
+        <mat-form-field appearance="outline" class="w-100 field">
           <mat-label>Password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required aria-label="Password">
-          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" aria-label="Toggle password visibility">
-            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            required
+            aria-label="Password"
+            autocomplete="current-password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hide = !hide"
+            [attr.aria-pressed]="!hide"
+            aria-label="Toggle password visibility"
+          >
+            <mat-icon aria-hidden="true">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
           <mat-error *ngIf="passwordCtrl?.hasError('required')">Password is required.</mat-error>
         </mat-form-field>
 
+        <!-- Aux row per design: forgot link aligned right under password -->
+        <div class="row aux">
+          <a class="forgot" href="#" aria-label="Forgot password">Forgot password?</a>
+        </div>
+
+        <!-- Optional remember-me row retained but aligned start for accessibility and consistency -->
         <div class="row options">
-          <mat-checkbox formControlName="remember">Remember me</mat-checkbox>
-          <a class="forgot" href="#">Forgot password?</a>
+          <mat-checkbox formControlName="remember" aria-label="Remember me">Remember me</mat-checkbox>
         </div>
 
         <button
@@ -63,7 +90,7 @@
           <ng-container *ngIf="!isLoading(); else loadingTpl">Login</ng-container>
         </button>
         <ng-template #loadingTpl>
-          <span class="btn-loading">
+          <span class="btn-loading" aria-live="polite">
             <mat-spinner [diameter]="18"></mat-spinner>
             <span>Signing in...</span>
           </span>
