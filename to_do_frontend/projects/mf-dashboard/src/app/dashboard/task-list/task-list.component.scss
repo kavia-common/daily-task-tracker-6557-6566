@@ -1,0 +1,37 @@
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.toolbar-row .spacer { flex: 1; }
+
+.task-table {
+  width: 100%;
+  background: var(--bg-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+td .title { font-weight: 600; color: var(--text-strong); }
+td .desc { color: var(--text-muted); font-size: 12px; }
+
+td.selected, td.selected .title {
+  background: #F8FAFC;
+}
+
+.status[data-status="open"] { color: #2563EB; }
+.status[data-status="in_progress"] { color: #F59E0B; }
+.status[data-status="done"] { color: #22C55E; }
+
+.error-area {
+  background: var(--primary-50);
+  color: var(--error-600);
+  border: 1px solid var(--error-500);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin: 12px 0;
+  font-size: 13px;
+}
