@@ -19,10 +19,18 @@
   <section class="panel-right">
     <div class="auth-card mat-elevation-z8">
       <h2 class="card-title">Login</h2>
-      <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <!-- Error area -->
+      <div *ngIf="errorMessage()" class="error-area" role="alert" aria-live="assertive">
+        {{ errorMessage() }}
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" required aria-label="Email" placeholder="you@company.com">
+          <mat-error *ngIf="emailCtrl?.hasError('required')">Email is required.</mat-error>
+          <mat-error *ngIf="emailCtrl?.hasError('email')">Enter a valid email address.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
@@ -31,13 +39,30 @@
           <button mat-icon-button matSuffix type="button" (click)="hide = !hide" aria-label="Toggle password visibility">
             <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
+          <mat-error *ngIf="passwordCtrl?.hasError('required')">Password is required.</mat-error>
         </mat-form-field>
 
-        <div class="row aux">
+        <div class="row options">
+          <mat-checkbox formControlName="remember">Remember me</mat-checkbox>
           <a class="forgot" href="#">Forgot password?</a>
         </div>
 
-        <button mat-flat-button color="primary" class="btn-primary w-100" type="submit">Login</button>
+        <button
+          mat-flat-button
+          color="primary"
+          class="btn-primary w-100"
+          type="submit"
+          [disabled]="form.invalid || isLoading()"
+          [attr.aria-busy]="isLoading()"
+        >
+          <ng-container *ngIf="!isLoading(); else loadingTpl">Login</ng-container>
+        </button>
+        <ng-template #loadingTpl>
+          <span class="btn-loading">
+            <mat-spinner [diameter]="18"></mat-spinner>
+            <span>Signing in...</span>
+          </span>
+        </ng-template>
       </form>
     </div>
   </section>

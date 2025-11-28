@@ -14,6 +14,14 @@ This workspace contains:
   - Host route config: `src/app/app.routes.ts`
   - MF routes mapping: `src/app/remote-entry.routes.ts`
 
+## API base configuration (temporary)
+- The `mf-login` remote reads `window.NG_APP_API_BASE` to configure its `LoginApiService`.
+- For step 2.2 this is a simulated API; in step 2.3 wire to the backend endpoint (e.g., `${NG_APP_BACKEND_URL}/auth/login`).
+- To override at runtime, set in the browser console or include before the host script:
+  ```html
+  <script>window.NG_APP_API_BASE = 'http://localhost:3001';</script>
+  ```
+
 ## Run locally
 1. Install deps:
    npm install
@@ -32,3 +40,4 @@ Notes:
   - Host: `module-federation.config.js`
   - Remote: `projects/mf-login/module-federation.config.js`
 - Adjust remote URL in host MF config if needed (env or window var).
+- To change the remote URL at runtime, set `window.MF_LOGIN_URL = 'http://localhost:4201/remoteEntry.js'` before app bootstraps.

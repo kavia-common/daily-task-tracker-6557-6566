@@ -56,6 +56,41 @@
 
 .row.aux .forgot:hover { text-decoration: underline; }
 
+.row.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 12px;
+}
+
+.btn-primary.mdc-button--filled,
+.btn-primary.mat-mdc-unelevated-button {
+  background: var(--primary-500);
+}
+.btn-primary.mdc-button--filled:hover,
+.btn-primary.mat-mdc-unelevated-button:hover {
+  background: var(--primary-600);
+}
+.btn-primary[aria-busy="true"] {
+  opacity: .9;
+}
+
+.btn-loading {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.error-area {
+  background: var(--primary-50);
+  color: var(--error-600);
+  border: 1px solid var(--error-500);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
 .brand {
   font-weight: 700;
   font-size: 22px;
