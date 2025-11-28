@@ -1,3 +1,7 @@
-<div class="container">
-  <h1>{{ title }}</h1>
-</div>
+<header style="display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid #eee;background:#fff;">
+  <strong>App Shell (Host)</strong>
+  <a href="/login">Login (remote)</a>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>

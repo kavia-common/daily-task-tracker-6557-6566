@@ -1,3 +1,6 @@
+/* Import the Angular Material theme (Sass compiled separately) */
+@use './styles/theme' as *;
+
 /* Global styles for minimalistic design */
 * {
   margin: 0;

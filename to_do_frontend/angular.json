@@ -27,7 +27,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -95,9 +95,63 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "mf-login": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/mf-login",
+      "sourceRoot": "projects/mf-login/src",
+      "prefix": "login",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/mf-login",
+            "index": "projects/mf-login/src/index.html",
+            "browser": "projects/mf-login/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/mf-login/tsconfig.app.json",
+            "assets": [],
+            "styles": [
+              "src/styles.css",
+              "src/styles/theme.scss"
+            ],
+            "scripts": [],
+            "server": "projects/mf-login/src/main.server.ts",
+            "prerender": false,
+            "ssr": {
+              "entry": "projects/mf-login/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "mf-login:build:production" },
+            "development": { "buildTarget": "mf-login:build:development" }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201,
+            "host": "0.0.0.0",
+            "disableHostCheck": true
           }
         }
       }
