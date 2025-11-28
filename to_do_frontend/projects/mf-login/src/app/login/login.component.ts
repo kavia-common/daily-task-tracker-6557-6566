@@ -19,6 +19,7 @@ export class LoginComponent {
   hide = true;
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
+  successMessage = signal<string | null>(null);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -32,6 +33,7 @@ export class LoginComponent {
   /** Submit the login form (validates, shows loading state, and handles error/success). */
   submit(): void {
     this.errorMessage.set(null);
+    this.successMessage.set(null);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -41,16 +43,23 @@ export class LoginComponent {
     this.api.login({ email: email!, password: password!, remember: !!remember }).subscribe({
       next: (resp) => {
         this.isLoading.set(false);
-        if (!resp.success) {
-          this.errorMessage.set(resp.message || 'Login failed.');
+        if (!resp?.success) {
+          const msg = resp?.message || 'Invalid email or password.';
+          this.errorMessage.set(msg);
           return;
         }
-        // Successful login (simulated). In step 2.3 we will route and store token or cookies as needed.
+        // Successful login UX: show a success message.
+        this.successMessage.set(resp.message || 'Login successful.');
+        // In a future step we can route to dashboard and persist token/cookies.
         console.log('Login success', resp);
       },
       error: (err) => {
         this.isLoading.set(false);
-        const msg = (err && (err.message || err.error?.message)) || 'Unable to login.';
+        const msg =
+          err?.error?.message ||
+          err?.message ||
+          (typeof err?.error === 'string' ? err.error : null) ||
+          'Unable to login. Please try again.';
         this.errorMessage.set(msg);
       }
     });

@@ -42,9 +42,10 @@ import { LOGIN_API_BASE } from './login-api.service';
           // Access window via globalThis to satisfy SSR and linter
           // eslint-disable-next-line no-undef
           const w = (globalThis as any)?.window as any | undefined;
-          return (w && w.NG_APP_API_BASE) || '';
+          const fromWindow = (w && w.NG_APP_API_BASE) || '';
+          return (typeof fromWindow === 'string' && fromWindow.length) ? fromWindow : 'http://localhost:3001';
         } catch {
-          return '';
+          return 'http://localhost:3001';
         }
       }
     }

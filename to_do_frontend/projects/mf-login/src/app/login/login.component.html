@@ -25,6 +25,11 @@
         {{ errorMessage() }}
       </div>
 
+      <!-- Success area -->
+      <div *ngIf="successMessage()" class="success-area" role="status" aria-live="polite">
+        {{ successMessage() }}
+      </div>
+
       <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Email</mat-label>

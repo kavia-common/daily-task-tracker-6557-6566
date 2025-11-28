@@ -7,6 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    // Runtime guard: set default API base if not provided by hosting env.
+    (function () {
+      try {
+        var g = (typeof globalThis !== 'undefined' ? globalThis : window);
+        var w = g && g.window ? g.window : (typeof window !== 'undefined' ? window : undefined);
+        if (!w) return;
+        if (!w.NG_APP_API_BASE || typeof w.NG_APP_API_BASE !== 'string' || !w.NG_APP_API_BASE.length) {
+          w.NG_APP_API_BASE = 'http://localhost:3001';
+          // Optional console note for developers
+          if (w && w.console && typeof w.console.info === 'function') {
+            w.console.info('[Host] NG_APP_API_BASE defaulted to http://localhost:3001');
+          }
+        }
+      } catch (e) {
+        // swallow
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

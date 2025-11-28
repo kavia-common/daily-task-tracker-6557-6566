@@ -91,6 +91,16 @@
   font-size: 13px;
 }
 
+.success-area {
+  background: #ECFDF5; /* light success tint */
+  color: var(--success-500);
+  border: 1px solid var(--success-500);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
 .brand {
   font-weight: 700;
   font-size: 22px;

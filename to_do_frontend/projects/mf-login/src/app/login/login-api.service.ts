@@ -39,7 +39,11 @@ export interface LoginResponse {
 @Injectable({ providedIn: 'root' })
 export class LoginApiService {
   private http = inject(HttpClient);
-  private baseUrl = inject(LOGIN_API_BASE, { optional: true }) ?? readWindowVar('NG_APP_API_BASE') ?? '';
+  // Prefer DI token, then window var, finally default to localhost:3001 as guard fallback.
+  private baseUrl =
+    inject(LOGIN_API_BASE, { optional: true }) ??
+    readWindowVar('NG_APP_API_BASE') ??
+    'http://localhost:3001';
 
   /** PUBLIC_INTERFACE: Perform login request against backend. */
   login(credentials: LoginCredentials): Observable<LoginResponse> {
