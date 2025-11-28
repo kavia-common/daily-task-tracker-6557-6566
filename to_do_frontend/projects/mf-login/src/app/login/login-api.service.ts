@@ -1,6 +1,6 @@
 import { inject, Injectable, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, delay, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 /**
  * PUBLIC_INTERFACE
@@ -27,12 +27,13 @@ export interface LoginResponse {
   message?: string;
   /** Access token (when success is true) */
   token?: string;
+  /** Optional minimal user profile */
+  user?: { id: string; email: string; createdAt?: string };
 }
 
 /**
  * PUBLIC_INTERFACE
  * LoginApiService handles authentication calls to the backend.
- * Currently hits a placeholder endpoint to be wired in step 2.3.
  * Base URL is provided via LOGIN_API_BASE token to avoid hardcoding config.
  */
 @Injectable({ providedIn: 'root' })
@@ -40,36 +41,17 @@ export class LoginApiService {
   private http = inject(HttpClient);
   private baseUrl = inject(LOGIN_API_BASE, { optional: true }) ?? readWindowVar('NG_APP_API_BASE') ?? '';
 
-  /**
-   * PUBLIC_INTERFACE
-   * Perform login request against backend placeholder.
-   * For step 2.2 we simulate latency and return a mocked response when email includes "ok".
-   */
+  /** PUBLIC_INTERFACE: Perform login request against backend. */
   login(credentials: LoginCredentials): Observable<LoginResponse> {
-    // Placeholder behavior until step 2.3 wires real backend:
-    // - If email contains "ok", resolve success; otherwise error with message.
-    const simulateMs = 900;
-    if (credentials.email?.toLowerCase().includes('ok')) {
-      return of({
-        success: true,
-        message: 'Logged in (simulated)',
-        token: 'mock-token'
-      }).pipe(delay(simulateMs));
-    }
-    return throwError(() => ({
-      success: false,
-      message: 'Invalid email or password (simulated)'
-    })).pipe();
+    const url = this.joinUrl(this.baseUrl, '/api/auth/login');
+    return this.http.post<LoginResponse>(url, credentials, { withCredentials: true });
   }
 
-  /**
-   * Example real call for step 2.3 (kept here for reference and will be switched on then):
-   *
-   * private realLogin(credentials: LoginCredentials): Observable<LoginResponse> {
-   *   const url = this.joinUrl(this.baseUrl, '/auth/login');
-   *   return this.http.post<LoginResponse>(url, credentials, { withCredentials: true });
-   * }
-   */
+  /** PUBLIC_INTERFACE: Perform register request against backend. */
+  register(credentials: LoginCredentials): Observable<LoginResponse> {
+    const url = this.joinUrl(this.baseUrl, '/api/auth/register');
+    return this.http.post<LoginResponse>(url, credentials, { withCredentials: true });
+  }
 
   private joinUrl(base: string | undefined, path: string): string {
     if (!base) return path;
