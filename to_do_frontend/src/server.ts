@@ -37,6 +37,15 @@ app.get(
 app.get('**', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
+  // If the requested route is /login during SSR, avoid attempting to render the remote.
+  // Defer to client-side to load the remote module.
+  const isLogin = originalUrl === '/login' || originalUrl.startsWith('/login?');
+  if (isLogin) {
+    // Serve the base index.html so client router can navigate and load the remote at runtime.
+    res.sendFile(join(browserDistFolder, 'index.html'));
+    return;
+  }
+
   commonEngine
     .render({
       bootstrap,

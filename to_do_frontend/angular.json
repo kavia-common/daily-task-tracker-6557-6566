@@ -27,11 +27,12 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/theme.scss"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": false,
             "ssr": {
               "entry": "src/server.ts"
             }
@@ -119,7 +120,7 @@
             "tsConfig": "projects/mf-login/tsconfig.app.json",
             "assets": [],
             "styles": [
-              "src/styles.css",
+              "projects/mf-login/src/styles.css",
               "src/styles/theme.scss"
             ],
             "scripts": [],

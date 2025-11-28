@@ -10,9 +10,9 @@ This workspace contains:
 - CSS variables declared in theme.scss implement color tokens and are used in the login screen styles.
 
 ## Routing
-- Host route `/login` loads the remote's `LoginModule` using Module Federation.
+- Host route `/login` lazy-loads the remote's `LoginModule` using Module Federation.
   - Host route config: `src/app/app.routes.ts`
-  - MF loader: `src/app/remote-entry.routes.ts`
+  - MF routes mapping: `src/app/remote-entry.routes.ts`
 
 ## Run locally
 1. Install deps:
